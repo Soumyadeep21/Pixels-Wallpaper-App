@@ -44,7 +44,7 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
         children: <Widget>[
           EditorsChoicePage(),
           HomePage(),
-          Center(child: Text('🔥🔥🔥 Search Functionality Coming Soon 🔥🔥🔥',style: TextStyle(fontSize: 30),textAlign: TextAlign.center,),),
+          Center(child: Text('🔥🔥🔥 Search Functionality Coming Soon 🔥🔥🔥',textAlign: TextAlign.center,),),
           SettingsPage(),
         ],
       ),

@@ -1,10 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:wallpaper_app/config/dark_mode.dart';
 import 'package:wallpaper_app/config/home_page_config.dart';
-import 'package:wallpaper_app/screens/full_image_page.dart';
+import 'package:wallpaper_app/universal/wallpaper_item.dart';
 import 'package:wallpaper_app/utils/wallpaper_app.dart';
 
 class HomePage extends StatefulWidget {
@@ -44,30 +42,7 @@ class _HomePageState extends State<HomePage> {
                       mainAxisSpacing: 5.0),
                   itemCount: config.wallpaperList.length,
                   controller: _scrollController,
-                  itemBuilder: (_, index) => GestureDetector(
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => FullImagePage(
-                          wallpaper: config.wallpaperList[index],
-                        ),
-                      ),
-                    ),
-                    child: Hero(
-                      tag: config.wallpaperList[index].largeImageURL,
-                      child: Material(
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10.0),
-                          child: CachedNetworkImage(
-                            placeholder: (_,name) => SpinKitCubeGrid(color: isDarkModeOn ? Colors.white : Colors.blue,),
-                            imageUrl: config.wallpaperList[index].largeImageURL,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  itemBuilder: (_, index) => WallpaperItem(wallpaper: config.wallpaperList[index], isDarkModeOn: isDarkModeOn),
                 )
               : config.state == ViewState.Error
                   ? Center(

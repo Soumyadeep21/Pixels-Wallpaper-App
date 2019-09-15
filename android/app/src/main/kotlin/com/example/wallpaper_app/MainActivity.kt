@@ -57,7 +57,7 @@ class MainActivity: FlutterActivity() {
                 3 -> res = try {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                         wallpaperManager.setBitmap(bitmap, null, true)
-                        "Lock Screen set successfully"
+                        "Both Home and Lock Screen set successfully"
                     } else
                         "To set Wallpaper Android Nougat or higher required !"
                 }catch (e:IOException){

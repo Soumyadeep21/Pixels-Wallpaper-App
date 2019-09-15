@@ -1,63 +1,17 @@
-import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:downloads_path_provider/downloads_path_provider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wallpaper_app/config/dark_mode.dart';
-import 'package:wallpaper_app/networking/wallpaper_response.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:dio/dio.dart';
+import 'package:wallpaper_app/models/wallpaper_response.dart';
+import 'package:wallpaper_app/utils/wallpaper_handler.dart';
 
 class FullImagePage extends StatelessWidget {
   final Wallpaper wallpaper;
-  static const platform = const MethodChannel('wallpaper');
 
   const FullImagePage({this.wallpaper});
-
-  Future<String> downloadFile() async {
-    var path = (await DownloadsPathProvider.downloadsDirectory).parent;
-    PermissionStatus permission = await PermissionHandler()
-        .checkPermissionStatus(PermissionGroup.storage);
-    if (permission != PermissionStatus.granted) {
-      Map<PermissionGroup, PermissionStatus> permissions =
-          await PermissionHandler()
-              .requestPermissions([PermissionGroup.storage]);
-      if (permissions[PermissionGroup.storage] != PermissionStatus.granted) {
-        Fluttertoast.showToast(
-            msg: 'Download Failed! Storage Permissions should be granted');
-        return '';
-      }
-    }
-    Directory downloadPath = Directory('${path.path}/PixelsWallpaperDownloads');
-    downloadPath.exists().then((exist) async {
-      if (!exist) await downloadPath.create();
-    });
-    Dio dio = Dio();
-    var filePath = '${downloadPath.path}/${wallpaper.id}.jpg';
-    try {
-      await dio.download(wallpaper.largeImageURL, filePath);
-      print('Download Complete');
-      Fluttertoast.showToast(msg: 'Download Complete');
-      return filePath;
-    } catch (e) {
-      print(e);
-      Fluttertoast.showToast(msg: 'Download Failed');
-      return '';
-    }
-  }
-
-  void setWallpaper() async {
-    await downloadFile().then((path) async {
-      if (path == '') return;
-      String message = await platform.invokeMethod('HomeScreen', path);
-      Fluttertoast.showToast(msg: message);
-    });
-  }
 
   void _showAboutDialog(context, bool isDarkModeOn) {
     showDialog(
@@ -115,6 +69,9 @@ class FullImagePage extends StatelessWidget {
         child: Hero(
           tag: wallpaper.largeImageURL,
           child: CachedNetworkImage(
+            placeholder: (_, name) => SpinKitCubeGrid(
+              color: isDarkModeOn ? Colors.white : Colors.blue,
+            ),
             imageUrl: wallpaper.largeImageURL,
             fit: BoxFit.cover,
           ),
@@ -133,14 +90,17 @@ class FullImagePage extends StatelessWidget {
             IconButton(
               tooltip: 'Download',
               onPressed: () {
-                downloadFile();
+                WallpaperHandler.downloadFile(wallpaper: wallpaper);
               },
               icon: Icon(Icons.file_download),
             ),
             IconButton(
               tooltip: 'Set Wallpaper',
               onPressed: () {
-                setWallpaper();
+                WallpaperHandler.setWallpaper(
+                    ctx: context,
+                    isDarkModeOn: isDarkModeOn,
+                    wallpaper: wallpaper);
               },
               icon: Icon(Icons.wallpaper),
             ),
