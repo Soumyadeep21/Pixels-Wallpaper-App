@@ -62,12 +62,6 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     bool isDarkModeOn = Provider.of<DarkMode>(context).isDarkModeOn;
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.star),
-          onPressed: showRatings,
-        ),
-      ),
       backgroundColor: isDarkModeOn ? Colors.black : Colors.white,
       body: TabBarView(
         controller: _pageController,
