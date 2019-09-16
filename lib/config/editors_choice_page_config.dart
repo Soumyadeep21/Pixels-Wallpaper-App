@@ -1,12 +1,12 @@
 import 'package:wallpaper_app/config/base_page_config.dart';
 
 class EditorsChoicePageConfig extends BasePageConfig {
-  Future<void> getData() async =>
-      await super.getWallpaperData(editorsChoice: true);
+  @override Future<void> getData({bool editorsChoice,String query}) async =>
+      await super.getData(editorsChoice: true);
 
-  Future<void> getMoreData() async =>
-      await super.getMoreWallpaperData(editorsChoice: true);
+  Future<void> getMoreData({bool editorsChoice,String query}) async =>
+      await super.getMoreData(editorsChoice: true);
 
-  Future<void> reloadData() async =>
-      await super.reloadWallpaperData(editorsChoice: true);
+  Future<void> reloadData({bool editorsChoice,String query}) async =>
+      await super.reloadData(editorsChoice: true);
 }

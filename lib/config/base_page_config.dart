@@ -20,7 +20,7 @@ class BasePageConfig extends ChangeNotifier{
     notifyListeners();
   }
 
-  Future<void> getWallpaperData({bool editorsChoice,String query}) async {
+  Future<void> getData({bool editorsChoice,String query}) async {
     if (isDataLoaded) return;
     url = URLMaker.url(page: _page, editorsChoice: editorsChoice,query: query);
     try {
@@ -44,7 +44,7 @@ class BasePageConfig extends ChangeNotifier{
     }
   }
 
-  Future<void> getMoreWallpaperData({bool editorsChoice,String query}) async {
+  Future<void> getMoreData({bool editorsChoice,String query}) async {
     if (_page == _totalPages) return;
     try {
       ++_page;
@@ -69,13 +69,13 @@ class BasePageConfig extends ChangeNotifier{
     }
   }
 
-  Future<void> reloadWallpaperData({bool editorsChoice,String query}) async {
+  Future<void> reloadData({bool editorsChoice,String query}) async {
     _setState(ViewState.Busy);
     _page = 1;
     errorMessage = '';
     wallpaperList = <Wallpaper>[];
     isDataLoaded = false;
-    await getWallpaperData(editorsChoice: editorsChoice,query: query);
+    await getData(editorsChoice: editorsChoice,query: query);
   }
 
   WallpaperResponse _wallpaperFromJson(String str) {
