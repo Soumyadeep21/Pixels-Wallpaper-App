@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:rate_my_app/rate_my_app.dart';
 import 'package:wallpaper_app/config/dark_mode.dart';
-import 'package:wallpaper_app/screens/editors_choice_page.dart';
-import 'package:wallpaper_app/screens/home_page.dart';
-import 'package:wallpaper_app/screens/settings_page.dart';
+import 'package:wallpaper_app/utils/page_handler.dart';
 
 class RootPage extends StatefulWidget {
   @override
@@ -15,11 +13,37 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
   int _currentIndex = 0;
   TabController _pageController;
 
+  RateMyApp _rateMyApp = RateMyApp(
+      minDays: 1,
+      minLaunches: 5,
+      remindDays: 5,
+      remindLaunches: 10,
+      preferencesPrefix: 'feedback');
+
   @override
   void initState() {
     super.initState();
-    _pageController = TabController(initialIndex: 0, length: 4, vsync: this);
+    _pageController = TabController(
+        initialIndex: 0, length: PageHandler.pages.length, vsync: this);
     _pageController.addListener(_handleTabChange);
+    showRatings();
+  }
+
+  void showRatings() {
+    _rateMyApp.init().then((_) {
+      if (_rateMyApp.shouldOpenDialog) {
+        _rateMyApp.showRateDialog(
+          context,
+          title: 'Rate this app',
+          message:
+              'If you like this app, please take a little bit of your time to review it !\nIt really helps us and it shouldn\'t take you more than one minute.',
+          rateButton: 'RATE',
+          noButton: 'NO THANKS',
+          laterButton: 'MAYBE LATER',
+          ignoreIOS: false,
+        );
+      }
+    });
   }
 
   @override
@@ -38,15 +62,16 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     bool isDarkModeOn = Provider.of<DarkMode>(context).isDarkModeOn;
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.star),
+          onPressed: showRatings,
+        ),
+      ),
       backgroundColor: isDarkModeOn ? Colors.black : Colors.white,
       body: TabBarView(
         controller: _pageController,
-        children: <Widget>[
-          EditorsChoicePage(),
-          HomePage(),
-          Center(child: Text('🔥🔥🔥 Search Functionality Coming Soon 🔥🔥🔥',textAlign: TextAlign.center,),),
-          SettingsPage(),
-        ],
+        children: PageHandler.pages,
       ),
       bottomNavigationBar: BottomNavigationBar(
         showUnselectedLabels: false,
@@ -59,28 +84,7 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
             _pageController.index = _currentIndex;
           });
         },
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.star),
-            title: Text('Editor\'s Choice'),
-            backgroundColor: isDarkModeOn ? Colors.black : Colors.white,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
-            backgroundColor: isDarkModeOn ? Colors.black : Colors.white,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            title: Text('Search'),
-            backgroundColor: isDarkModeOn ? Colors.black : Colors.white,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            title: Text('Settings'),
-            backgroundColor: isDarkModeOn ? Colors.black : Colors.white,
-          ),
-        ],
+        items: PageHandler.getNavBarItems(isDarkModeOn),
       ),
     );
   }
