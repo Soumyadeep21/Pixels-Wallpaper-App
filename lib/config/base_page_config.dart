@@ -45,7 +45,7 @@ class BasePageConfig extends ChangeNotifier{
   }
 
   Future<void> getMoreData({bool editorsChoice,String query}) async {
-    if (_page == _totalPages) return;
+    if (_page == _totalPages || _state != ViewState.Idle) return;
     try {
       ++_page;
       url = URLMaker.url(page: _page, editorsChoice: editorsChoice,query: query);
