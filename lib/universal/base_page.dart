@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:wallpaper_app/config/base_page_config.dart';
 import 'package:wallpaper_app/config/dark_mode.dart';
+import 'package:wallpaper_app/universal/wallpaper_error_widget.dart';
 import 'package:wallpaper_app/universal/wallpaper_item.dart';
 import 'package:wallpaper_app/utils/wallpaper_app.dart';
 
 class BasePage extends StatelessWidget {
-
   final BasePageConfig config;
+  final Widget appBarTitle;
 
-  const BasePage({Key key, @required this.config});
+  const BasePage({Key key, @required this.config, @required this.appBarTitle});
 
   @override
   Widget build(BuildContext context) {
@@ -23,37 +25,53 @@ class BasePage extends StatelessWidget {
     return Column(
       children: <Widget>[
         Expanded(
-          child: config.state == ViewState.Idle ||
-                  config.state == ViewState.MoreDataLoading
-              ? GridView.builder(
-                  padding: EdgeInsets.symmetric(horizontal: 2.0),
-                  physics: BouncingScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 5.0,
-                      mainAxisSpacing: 5.0),
-                  itemCount: config.wallpaperList.length,
-                  controller: _scrollController,
-                  itemBuilder: (_, index) => WallpaperItem(wallpaper: config.wallpaperList[index], isDarkModeOn: isDarkModeOn),
-                )
-              : config.state == ViewState.Error
-                  ? Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text(config.errorMessage),
-                          RaisedButton(
-                            child: Text('Retry'),
-                            color: isDarkModeOn ? Colors.green : Colors.blue,
-                            onPressed: () => config.reloadData(),
-                          )
-                        ],
-                      ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 4.0),
+            child: CustomScrollView(
+              physics: BouncingScrollPhysics(),
+              controller: _scrollController,
+              slivers: <Widget>[
+                SliverAppBar(
+                  title: appBarTitle,
+                  floating: true,
+                  actions: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.replay),
+                      onPressed: () {
+                        _scrollController.jumpTo(0.0);
+                        config.reloadData();
+                      },
                     )
-                  : Center(
-                      child: CircularProgressIndicator(),
-                    ),
+                  ],
+                ),
+                config.state == ViewState.Idle ||
+                        config.state == ViewState.MoreDataLoading
+                    ? SliverGrid.count(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 3.0,
+                        mainAxisSpacing: 3.0,
+                        children: config.wallpaperList
+                            .map(
+                              (wallpaper) => WallpaperItem(
+                                wallpaper: wallpaper,
+                                isDarkModeOn: isDarkModeOn,
+                              ),
+                            )
+                            .toList(),
+                      )
+                    : SliverFillRemaining(
+                        child: config.state == ViewState.Error
+                            ? WallpaperErrorWidget(
+                                config: config, isDarkModeOn: isDarkModeOn)
+                            : Center(
+                                child: SpinKitWanderingCubes(
+                                  color: isDarkModeOn ? Colors.white : Colors.blue,
+                                ),
+                              ),
+                      ),
+              ],
+            ),
+          ),
         ),
         Visibility(
           child: LinearProgressIndicator(),
