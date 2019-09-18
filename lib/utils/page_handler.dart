@@ -2,18 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wallpaper_app/screens/editors_choice_page.dart';
 import 'package:wallpaper_app/screens/home_page.dart';
+import 'package:wallpaper_app/screens/search_page.dart';
 import 'package:wallpaper_app/screens/settings_page.dart';
 
 class PageHandler {
   static List<Widget> pages = <Widget>[
     EditorsChoicePage(),
     HomePage(),
-    Center(
-      child: Text(
-        '🔥🔥🔥 Search Functionality Coming Soon 🔥🔥🔥',
-        textAlign: TextAlign.center,
-      ),
-    ),
+    SearchPage(),
     SettingsPage(),
   ];
 
