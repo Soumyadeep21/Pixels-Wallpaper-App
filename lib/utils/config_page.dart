@@ -16,6 +16,7 @@ class ConfigPage extends StatelessWidget {
       title: WallpaperApp.appName,
       theme: ThemeData(
         fontFamily: WallpaperApp.notoSans,
+        scaffoldBackgroundColor: isDarkModeOn ? Colors.black : Colors.white,
         brightness: isDarkModeOn ? Brightness.dark : Brightness.light,
         backgroundColor: isDarkModeOn ? Colors.black : Colors.white,
         cardColor: isDarkModeOn ? Colors.black87 : Colors.white,
