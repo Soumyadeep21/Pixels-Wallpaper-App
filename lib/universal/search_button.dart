@@ -14,7 +14,7 @@ class SearchButton extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(30),
         child: Container(
-          padding: EdgeInsets.all(12.0),
+          padding: EdgeInsets.all(8.0),
           width: MediaQuery.of(context).size.width * .8,
           decoration: BoxDecoration(
               gradient: LinearGradient(

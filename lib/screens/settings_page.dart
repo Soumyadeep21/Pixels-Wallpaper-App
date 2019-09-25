@@ -32,10 +32,9 @@ class SettingsPage extends StatelessWidget {
         Divider(),
         ListTile(
           title: Padding(
-            padding: const EdgeInsets.only(bottom : 8.0),
+            padding: const EdgeInsets.only(bottom: 8.0),
             child: Text('Sort Images'),
           ),
-          //subtitle: Text('Sort images by'),
           subtitle: CupertinoSegmentedControl(
             children: const <Order, Widget>{
               Order.popular: Text('Popular'),
@@ -53,7 +52,6 @@ class SettingsPage extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text('Image Orientation'),
           ),
-          //subtitle: Text('Orientation of Wallpapers Shown'),
           subtitle: CupertinoSegmentedControl(
             children: const <WallpaperOrientation, Widget>{
               WallpaperOrientation.all: Text('All'),
@@ -68,18 +66,38 @@ class SettingsPage extends StatelessWidget {
           ),
         ),
         Divider(),
-        ListTile(
-          leading: Icon(Icons.share),
-          title: Text('Share'),
-          onTap: () {},
-        ),
+        // ListTile(
+        //   leading: Icon(Icons.share),
+        //   title: Text('Share'),
+        //   onTap: () {},
+        // ),
         Divider(),
         ListTile(
           leading: Icon(Icons.info),
           title: Text('About'),
-          onTap: () {},
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (ctx) => SimpleDialog(
+                backgroundColor: darkMode.isDarkModeOn ? Colors.black : Colors.white,
+                title: Text('About'),
+                children: <Widget>[
+                  ListTile(
+                    title: Text(WallpaperApp.appName),
+                    subtitle: Text(WallpaperApp.appVersion),
+                    trailing: Image.asset('assets/images/logo.png'),
+                  ),
+                ],
+              )
+            );
+          },
         ),
-        Divider()
+        Divider(),
+        // ListTile(
+        //   leading: Icon(Icons.stars),
+        //   title: Text('Feedback'),
+        //   onTap: (){},
+        // ),
       ],
     );
   }
