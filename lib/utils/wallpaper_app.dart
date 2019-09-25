@@ -18,4 +18,4 @@ class WallpaperApp{
 }
 enum Order{popular,latest}
 enum WallpaperOrientation {all,horizontal,vertical}
-enum ViewState { Idle, Busy, MoreDataLoading, Error,}
+enum ViewState { Idle, Busy, MoreDataLoading, Error, NotFound}
