@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 
 class SearchTextField extends StatefulWidget {
-  SearchTextField({@required this.controller, @required this.onSubmitted});
+  SearchTextField({@required this.controller, @required this.onSubmitted, this.isAppBar});
 
   final TextEditingController controller;
   final Function onSubmitted;
+  final bool isAppBar;
 
   @override
   _SearchTextFieldState createState() =>
-      _SearchTextFieldState(controller, onSubmitted);
+      _SearchTextFieldState(controller, onSubmitted,isAppBar);
 }
 
 class _SearchTextFieldState extends State<SearchTextField> {
   bool isClearButtonVisible = false;
   final TextEditingController controller;
   final Function onSubmitted;
-  _SearchTextFieldState(this.controller, this.onSubmitted);
+  final bool isAppBar;
+  _SearchTextFieldState(this.controller, this.onSubmitted, this.isAppBar);
   @override
   void initState() {
     super.initState();
@@ -29,7 +31,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      elevation: 15.0,
+      elevation: isAppBar!=null ? isAppBar ? 4.0 : 15.0 : 15.0,
       borderRadius: BorderRadius.circular(30.0),
       child: TextField(
         controller: controller,
