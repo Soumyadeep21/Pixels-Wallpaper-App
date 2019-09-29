@@ -14,7 +14,7 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
   TabController _pageController;
 
   RateMyApp _rateMyApp = RateMyApp(
-    googlePlayIdentifier: '',
+    googlePlayIdentifier: 'com.soumyadeep.pixels',
     minDays: 1,
     minLaunches: 5,
     remindDays: 5,

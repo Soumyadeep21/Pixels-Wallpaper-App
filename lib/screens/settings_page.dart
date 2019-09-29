@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:launch_review/launch_review.dart';
 import 'package:provider/provider.dart';
+import 'package:share/share.dart';
 import 'package:wallpaper_app/config/dark_mode.dart';
 import 'package:wallpaper_app/config/preferences.dart';
 import 'package:wallpaper_app/utils/wallpaper_app.dart';
@@ -66,11 +68,19 @@ class SettingsPage extends StatelessWidget {
           ),
         ),
         Divider(),
-        // ListTile(
-        //   leading: Icon(Icons.share),
-        //   title: Text('Share'),
-        //   onTap: () {},
-        // ),
+        ListTile(
+          leading: Icon(Icons.share),
+          title: Text('Share'),
+          onTap: () {
+            Share.share('https://play.google.com/store/apps/details?id=com.soumyadeep.pixels');
+          },
+        ),        
+        Divider(),
+        ListTile(
+          leading: Icon(Icons.stars),
+          title: Text('Give Feedback'),
+          onTap: () => LaunchReview.launch(androidAppId: "com.soumyadeep.pixels"),
+        ),
         Divider(),
         ListTile(
           leading: Icon(Icons.info),
@@ -87,17 +97,15 @@ class SettingsPage extends StatelessWidget {
                     subtitle: Text(WallpaperApp.appVersion),
                     trailing: Image.asset('assets/images/logo.png'),
                   ),
+                  ListTile(
+                    title: Text('Developed By'),
+                    subtitle: Text('Soumyadeep Sinha'),
+                  ),
                 ],
               )
             );
           },
         ),
-        Divider(),
-        // ListTile(
-        //   leading: Icon(Icons.stars),
-        //   title: Text('Feedback'),
-        //   onTap: (){},
-        // ),
       ],
     );
   }
