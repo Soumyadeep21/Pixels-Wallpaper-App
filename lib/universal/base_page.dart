@@ -74,7 +74,8 @@ class BasePage extends StatelessWidget {
                               .map((index, wallpaper) => MapEntry(
                                     index,
                                     WallpaperItem(
-                                      wallpaper: wallpaper,
+                                      selectedIndex: index,
+                                      wallpaperList: config.wallpaperList,
                                       isDarkModeOn: isDarkModeOn,
                                     ),
                                   ))

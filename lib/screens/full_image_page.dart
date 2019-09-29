@@ -7,26 +7,54 @@ import 'package:wallpaper_app/config/dark_mode.dart';
 import 'package:wallpaper_app/models/wallpaper_response.dart';
 import 'package:wallpaper_app/utils/wallpaper_handler.dart';
 
-class FullImagePage extends StatelessWidget {
-  final Wallpaper wallpaper;
+class FullImagePage extends StatefulWidget {
+  final List<Wallpaper> wallpaperList;
+  final int selectedIndex;
 
-  const FullImagePage({this.wallpaper});
+  const FullImagePage({@required this.wallpaperList,@required this.selectedIndex});
+
+  @override
+  _FullImagePageState createState() => _FullImagePageState(wallpaperList,selectedIndex);
+}
+
+class _FullImagePageState extends State<FullImagePage> {
+
+
+  @override
+  void initState() {
+    super.initState();
+    wallpaper = wallpaperList[selectedIndex];
+    pageController = PageController(
+      initialPage: selectedIndex
+    );
+    pageController.addListener((){
+      wallpaper = wallpaperList[pageController.page.toInt()];
+    });
+  }
+
+  final List<Wallpaper> wallpaperList;
+  final int selectedIndex;
+  PageController pageController;
+  Wallpaper wallpaper;
+
+  _FullImagePageState(this.wallpaperList, this.selectedIndex);
   @override
   Widget build(BuildContext context) {
     bool isDarkModeOn = Provider.of<DarkMode>(context).isDarkModeOn;
     return Scaffold(
       backgroundColor: isDarkModeOn ? Colors.black : Colors.white,
-      body: Center(
-        child: Hero(
-          tag: wallpaper.largeImageURL,
-          child: CachedNetworkImage(
-            placeholder: (_, name) => SpinKitCubeGrid(
-              color: isDarkModeOn ? Colors.white : Colors.blue,
-            ),
-            imageUrl: wallpaper.largeImageURL,
-            fit: BoxFit.cover,
+      body: PageView.builder(
+        controller: pageController,
+        itemCount: wallpaperList.length,
+        itemBuilder: (_,index) => Center(
+        child: CachedNetworkImage(
+          placeholder: (_, name) => SpinKitCubeGrid(
+            color: isDarkModeOn ? Colors.white : Colors.blue,
           ),
+          imageUrl: wallpaperList[index].largeImageURL,
+          fit: BoxFit.cover,
         ),
+      ),
       ),
       bottomNavigationBar: BottomAppBar(
         color: isDarkModeOn ? Colors.black : Colors.white,
