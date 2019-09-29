@@ -53,7 +53,7 @@ class BasePage extends StatelessWidget {
                       ),
                       Visibility(
                         visible: !(isSearchPage ?? false),
-                                              child: IconButton(
+                        child: IconButton(
                           icon: Icon(Icons.replay),
                           onPressed: () {
                             _scrollController.jumpTo(0.0);
@@ -70,12 +70,15 @@ class BasePage extends StatelessWidget {
                           crossAxisSpacing: 3.0,
                           mainAxisSpacing: 3.0,
                           children: config.wallpaperList
-                              .map(
-                                (wallpaper) => WallpaperItem(
-                                  wallpaper: wallpaper,
-                                  isDarkModeOn: isDarkModeOn,
-                                ),
-                              )
+                              .asMap()
+                              .map((index, wallpaper) => MapEntry(
+                                    index,
+                                    WallpaperItem(
+                                      wallpaper: wallpaper,
+                                      isDarkModeOn: isDarkModeOn,
+                                    ),
+                                  ))
+                              .values
                               .toList(),
                         )
                       : SliverFillRemaining(
@@ -105,4 +108,3 @@ class BasePage extends StatelessWidget {
     );
   }
 }
-
