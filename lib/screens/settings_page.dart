@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:launch_review/launch_review.dart';
 import 'package:provider/provider.dart';
+import 'package:share/share.dart';
 import 'package:wallpaper_app/config/dark_mode.dart';
 import 'package:wallpaper_app/config/preferences.dart';
 import 'package:wallpaper_app/utils/wallpaper_app.dart';
@@ -32,10 +34,9 @@ class SettingsPage extends StatelessWidget {
         Divider(),
         ListTile(
           title: Padding(
-            padding: const EdgeInsets.only(bottom : 8.0),
+            padding: const EdgeInsets.only(bottom: 8.0),
             child: Text('Sort Images'),
           ),
-          //subtitle: Text('Sort images by'),
           subtitle: CupertinoSegmentedControl(
             children: const <Order, Widget>{
               Order.popular: Text('Popular'),
@@ -53,7 +54,6 @@ class SettingsPage extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text('Image Orientation'),
           ),
-          //subtitle: Text('Orientation of Wallpapers Shown'),
           subtitle: CupertinoSegmentedControl(
             children: const <WallpaperOrientation, Widget>{
               WallpaperOrientation.all: Text('All'),
@@ -71,15 +71,41 @@ class SettingsPage extends StatelessWidget {
         ListTile(
           leading: Icon(Icons.share),
           title: Text('Share'),
-          onTap: () {},
+          onTap: () {
+            Share.share('https://play.google.com/store/apps/details?id=com.soumyadeep.pixels');
+          },
+        ),        
+        Divider(),
+        ListTile(
+          leading: Icon(Icons.stars),
+          title: Text('Give Feedback'),
+          onTap: () => LaunchReview.launch(androidAppId: "com.soumyadeep.pixels"),
         ),
         Divider(),
         ListTile(
           leading: Icon(Icons.info),
           title: Text('About'),
-          onTap: () {},
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (ctx) => SimpleDialog(
+                backgroundColor: darkMode.isDarkModeOn ? Colors.black : Colors.white,
+                title: Text('About'),
+                children: <Widget>[
+                  ListTile(
+                    title: Text(WallpaperApp.appName),
+                    subtitle: Text(WallpaperApp.appVersion),
+                    trailing: Image.asset('assets/images/logo.png'),
+                  ),
+                  ListTile(
+                    title: Text('Developed By'),
+                    subtitle: Text('Soumyadeep Sinha'),
+                  ),
+                ],
+              )
+            );
+          },
         ),
-        Divider()
       ],
     );
   }

@@ -1,17 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:wallpaper_app/models/wallpaper_response.dart';
 import 'package:wallpaper_app/screens/full_image_page.dart';
 
 class WallpaperItem extends StatelessWidget {
   const WallpaperItem({
     Key key,
-    @required this.wallpaper,
     @required this.isDarkModeOn,
+    @required this.wallpaperList,
+    @required this.selectedIndex,
   }) : super(key: key);
 
-  final Wallpaper wallpaper;
+  final List<Wallpaper> wallpaperList;
+  final int selectedIndex;
   final bool isDarkModeOn;
 
   @override
@@ -19,25 +22,25 @@ class WallpaperItem extends StatelessWidget {
     return GestureDetector(
       onTap: () => Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (_) => FullImagePage(
-            wallpaper: wallpaper,
+        PageTransition(
+          type: PageTransitionType.fade,
+          duration: Duration(milliseconds: 430),
+          child: FullImagePage(
+            selectedIndex: selectedIndex,
+            wallpaperList: wallpaperList,
           ),
-        ),
+        )
       ),
-      child: Hero(
-        tag: wallpaper.largeImageURL,
-        child: Material(
+      child: Material(
+        borderRadius: BorderRadius.circular(10.0),
+        child: ClipRRect(
           borderRadius: BorderRadius.circular(10.0),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10.0),
-            child: CachedNetworkImage(
-              placeholder: (_, name) => SpinKitCubeGrid(
-                color: isDarkModeOn ? Colors.white : Colors.blue,
-              ),
-              imageUrl: wallpaper.largeImageURL,
-              fit: BoxFit.cover,
+          child: CachedNetworkImage(
+            placeholder: (_, name) => SpinKitCubeGrid(
+              color: isDarkModeOn ? Colors.white : Colors.blue,
             ),
+            imageUrl: wallpaperList[selectedIndex].largeImageURL,
+            fit: BoxFit.cover,
           ),
         ),
       ),

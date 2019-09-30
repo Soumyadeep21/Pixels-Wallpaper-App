@@ -14,11 +14,13 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
   TabController _pageController;
 
   RateMyApp _rateMyApp = RateMyApp(
-      minDays: 1,
-      minLaunches: 5,
-      remindDays: 5,
-      remindLaunches: 10,
-      preferencesPrefix: 'feedback');
+    googlePlayIdentifier: 'com.soumyadeep.pixels',
+    minDays: 1,
+    minLaunches: 5,
+    remindDays: 5,
+    remindLaunches: 10,
+    preferencesPrefix: 'feedback',
+  );
 
   @override
   void initState() {

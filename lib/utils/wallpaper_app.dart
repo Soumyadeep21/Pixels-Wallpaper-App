@@ -1,9 +1,9 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class WallpaperApp{
-  static const String appName = 'Wallpaper App';
-  static const String appVersion = '1.0.0';
-  static const bool isDebugMode = true;
+  static const String appName = 'Pixels';
+  static const String appVersion = '1.0.2';
+  static const bool isDebugMode = false;
 
   static const String notoSans = 'NotoSans';
 
@@ -18,4 +18,4 @@ class WallpaperApp{
 }
 enum Order{popular,latest}
 enum WallpaperOrientation {all,horizontal,vertical}
-enum ViewState { Idle, Busy, MoreDataLoading, Error,}
+enum ViewState { Idle, Busy, MoreDataLoading, Error, NotFound}

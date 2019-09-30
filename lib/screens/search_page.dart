@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:wallpaper_app/config/search_page_config.dart';
+import 'package:wallpaper_app/screens/full_search_page.dart';
+import 'package:wallpaper_app/universal/search_button.dart';
 import 'package:wallpaper_app/universal/search_text_field.dart';
 
 class SearchPage extends StatefulWidget {
@@ -7,15 +11,17 @@ class SearchPage extends StatefulWidget {
   _SearchPageState createState() => _SearchPageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
+class _SearchPageState extends State<SearchPage>
+    with AutomaticKeepAliveClientMixin {
   final TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Divider(
             color: Colors.transparent,
@@ -32,17 +38,24 @@ class _SearchPageState extends State<SearchPage> {
               ),
             ],
           ),
+          Spacer(),
+          Hero(
+            tag: 'search',
+            child: SearchTextField(
+              controller: controller,
+              onSubmitted: searchForWallpapers,
+            ),
+          ),
           Divider(
             color: Colors.transparent,
           ),
-          SearchTextField(
-            controller: controller,
-            onSubmitted: searchForWallpapers,
+          Divider(
+            color: Colors.transparent,
           ),
-          IconButton(
-            icon: Icon(Icons.search),
+          SearchButton(
             onPressed: () => searchForWallpapers(controller.text),
-          )
+          ),
+          Spacer()
         ],
       ),
     );
@@ -51,5 +64,18 @@ class _SearchPageState extends State<SearchPage> {
   void searchForWallpapers(String query) {
     print('Hello');
     print(query);
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => ChangeNotifierProvider<SearchPageConfig>(
+          builder: (_) => SearchPageConfig(),
+          child: FullSearchPage(
+            controller: controller,
+          ),
+        ),
+      ),
+    );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

@@ -14,6 +14,7 @@ class BasePageConfig extends ChangeNotifier{
   int _totalPages;
   String url, errorMessage;
   bool isDataLoaded = false;
+  String _query;
   List<Wallpaper> wallpaperList = <Wallpaper>[];
   void _setState(ViewState state) {
     _state = state;
@@ -22,6 +23,7 @@ class BasePageConfig extends ChangeNotifier{
 
   Future<void> getData({bool editorsChoice,String query}) async {
     if (isDataLoaded) return;
+    _query = query;
     url = URLMaker.url(page: _page, editorsChoice: editorsChoice,query: query);
     try {
       print(url);
@@ -29,9 +31,15 @@ class BasePageConfig extends ChangeNotifier{
       print(response.body);
       if (response.statusCode == 200) {
         WallpaperResponse data = _wallpaperFromJson(response.body);
+        if(wallpaperList.isEmpty)
         wallpaperList.addAll(data.hits);
         _totalPages = (data.totalHits / 20).ceil();
         isDataLoaded = true;
+        if(data.totalHits == 0)
+        {
+          _setState(ViewState.NotFound);
+          return;
+        }
       }
       else{
         errorMessage = 'Some Error Occurred . Status Code : ${response.statusCode} . Contact Developer';
@@ -48,7 +56,7 @@ class BasePageConfig extends ChangeNotifier{
     if (_page == _totalPages || _state != ViewState.Idle) return;
     try {
       ++_page;
-      url = URLMaker.url(page: _page, editorsChoice: editorsChoice,query: query);
+      url = URLMaker.url(page: _page, editorsChoice: editorsChoice,query: _query);
       _setState(ViewState.MoreDataLoading);
       final response = await http.get(url);
       if(response.statusCode == 200){

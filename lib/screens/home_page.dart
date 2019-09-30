@@ -14,6 +14,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
   Widget build(BuildContext context) {
     super.build(context);
     HomePageConfig config = Provider.of<HomePageConfig>(context);
+    config.getData();
     return BasePage(config: config,appBarTitle: Text('Pixels : Wallpapers for you'));
   }
 
