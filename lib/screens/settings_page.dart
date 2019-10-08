@@ -23,15 +23,15 @@ class SettingsPage extends StatelessWidget {
           ),
         ),
         Divider(),
-        ListTile(
-          title: Text('Safe Search'),
-          subtitle: Text('Show only images that are suitable for all ages'),
-          trailing: CupertinoSwitch(
-            value: preferences.safeSearch,
-            onChanged: (_) => preferences.changeSafeSearch(),
-          ),
-        ),
-        Divider(),
+        // ListTile(
+        //   title: Text('Safe Search'),
+        //   subtitle: Text('Show only images that are suitable for all ages'),
+        //   trailing: CupertinoSwitch(
+        //     value: preferences.safeSearch,
+        //     onChanged: (_) => preferences.changeSafeSearch(),
+        //   ),
+        // ),
+        // Divider(),
         ListTile(
           title: Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
