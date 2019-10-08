@@ -14,7 +14,7 @@ class URLMaker {
     WallpaperOrientation orientation = preferences.wallpaperOrientation;
     Order order = preferences.order;
     if (query != null) baseURL = baseURL + '&q=${_urlFormatter(query)}';
-    if (safeSearch != null) baseURL = baseURL + '&safesearch=$safeSearch';
+    if (safeSearch != null) baseURL = baseURL + '&safesearch=true';
     if (editorsChoice != null)
       baseURL = baseURL + '&editors_choice=$editorsChoice';
     baseURL = baseURL + '&page=$page';
