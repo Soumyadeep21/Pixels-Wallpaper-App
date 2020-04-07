@@ -13,7 +13,7 @@ class WallpaperApp{
   static const String orientationPref = 'Orientation';
   static const String safeSearchPref = 'SafeSearch';
 
-  static const String apiKey = '11308358-67ad92507710cb90567e4924c';
+  static const String apiKey = 'YOUR-API-KEY';
 
 }
 enum Order{popular,latest}
