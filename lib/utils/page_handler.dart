@@ -16,22 +16,22 @@ class PageHandler {
   static List<BottomNavigationBarItem> getNavBarItems(bool isDarkModeOn) => [
         BottomNavigationBarItem(
           icon: Icon(FontAwesomeIcons.star),
-          title: Text('Editor\'s Choice'),
+          label: 'Editor\'s Choice',
           backgroundColor: isDarkModeOn ? Colors.black : Colors.white,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
-          title: Text('Home'),
+          label: 'Home',
           backgroundColor: isDarkModeOn ? Colors.black : Colors.white,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.search),
-          title: Text('Search'),
+          label: 'Search',
           backgroundColor: isDarkModeOn ? Colors.black : Colors.white,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.settings),
-          title: Text('Settings'),
+          label: 'Settings',
           backgroundColor: isDarkModeOn ? Colors.black : Colors.white,
         ),
       ];

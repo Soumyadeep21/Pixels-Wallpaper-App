@@ -29,13 +29,13 @@ class ConfigPage extends StatelessWidget {
       home: MultiProvider(
         providers: [
           ChangeNotifierProvider<EditorsChoicePageConfig>(
-            builder: (_) => EditorsChoicePageConfig(),
+            create: (_) => EditorsChoicePageConfig(),
           ),
           ChangeNotifierProvider<HomePageConfig>(
-            builder: (_) => HomePageConfig(),
+            create: (_) => HomePageConfig(),
           ),
           ChangeNotifierProvider<Preferences>(
-            builder: (_) => Preferences(
+            create: (_) => Preferences(
               myOrder: WallpaperApp.prefs.getString(WallpaperApp.orderPref),
               myWallpaperOrientation: WallpaperApp.prefs.getString(WallpaperApp.orientationPref),
               mySafeSearch: WallpaperApp.prefs.getBool(WallpaperApp.safeSearchPref)

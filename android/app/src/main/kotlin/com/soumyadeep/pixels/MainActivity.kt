@@ -1,32 +1,46 @@
-package com.example.wallpaper_app
+package com.soumyadeep.pixels
 
 import android.app.WallpaperManager
 import android.graphics.BitmapFactory
 import android.os.Build
-import android.os.Bundle
 
-import io.flutter.app.FlutterActivity
 import io.flutter.plugin.common.MethodChannel
-import io.flutter.plugins.GeneratedPluginRegistrant
 import java.io.File
 import java.io.IOException
+import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.engine.FlutterEngine
 import java.nio.channels.Channel
 
 class MainActivity: FlutterActivity() {
   private  val CHANNEL = "wallpaper"
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    GeneratedPluginRegistrant.registerWith(this)
-    MethodChannel(flutterView,CHANNEL).setMethodCallHandler{call, result ->
-        val path : String = (call.arguments).toString()
-        when(call.method){
-            "HomeScreen" -> result.success(setWallpaper(path,1))
-            "LockScreen" -> result.success(setWallpaper(path, 2))
-            "Both" -> result.success(setWallpaper(path,3))
-            else -> result.notImplemented()
+
+//  override fun onCreate(savedInstanceState: Bundle?) {
+//    super.onCreate(savedInstanceState)
+//    GeneratedPluginRegistrant.registerWith(this)
+//    MethodChannel(flutterView,CHANNEL).setMethodCallHandler{call, result ->
+//        val path : String = (call.arguments).toString()
+//        when(call.method){
+//            "HomeScreen" -> result.success(setWallpaper(path,1))
+//            "LockScreen" -> result.success(setWallpaper(path, 2))
+//            "Both" -> result.success(setWallpaper(path,3))
+//            else -> result.notImplemented()
+//        }
+//    }
+//  }
+
+    override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
+        super.configureFlutterEngine(flutterEngine)
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger,CHANNEL).setMethodCallHandler { call, result ->
+            val path : String = (call.arguments).toString()
+            when(call.method){
+                "HomeScreen" -> result.success(setWallpaper(path,1))
+                "LockScreen" -> result.success(setWallpaper(path, 2))
+                "Both" -> result.success(setWallpaper(path,3))
+                else -> result.notImplemented()
+            }
         }
     }
-  }
+
    private fun setWallpaper(path:String?,type:Int):String{
         try {
             if(path == null)
