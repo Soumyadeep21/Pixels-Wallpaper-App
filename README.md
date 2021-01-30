@@ -1,6 +1,6 @@
-# wallpaper_app
+# PIXELS : Beautiful Wallpapers for your Mobile
 
-A new Flutter project.
+A Wallpaper App built with Flutter.
 
 ## Getting Started
 

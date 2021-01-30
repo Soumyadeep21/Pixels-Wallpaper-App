@@ -14,6 +14,7 @@ class WallpaperApp{
   static const String orientationPref = 'Orientation';
   static const String safeSearchPref = 'SafeSearch';
 
+
   /*
   *Create a secrets.dart file in utils folder and paste the following code with your own PEXELS API KEY
   *Obtain your won key at https://www.pexels.com/api/
