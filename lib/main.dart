@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<DarkMode>(
-      builder: (_) => DarkMode(WallpaperApp.prefs.getBool(WallpaperApp.darkModePref)??false),
+      create: (_) => DarkMode(WallpaperApp.prefs.getBool(WallpaperApp.darkModePref)??false),
       child: ConfigPage(),
     );
   }

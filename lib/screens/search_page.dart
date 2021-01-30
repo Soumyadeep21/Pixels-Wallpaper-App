@@ -67,7 +67,7 @@ class _SearchPageState extends State<SearchPage>
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => ChangeNotifierProvider<SearchPageConfig>(
-          builder: (_) => SearchPageConfig(),
+          create: (_) => SearchPageConfig(),
           child: FullSearchPage(
             controller: controller,
           ),

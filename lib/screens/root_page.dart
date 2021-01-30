@@ -42,7 +42,6 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
           rateButton: 'RATE',
           noButton: 'NO THANKS',
           laterButton: 'MAYBE LATER',
-          ignoreIOS: false,
         );
       }
     });
