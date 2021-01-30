@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:wallpaper_app/models/wallpaper_response.dart';
 import 'package:wallpaper_app/screens/full_image_page.dart';
+import 'package:wallpaper_app/models/wallpaper.dart';
 
 class WallpaperItem extends StatelessWidget {
   const WallpaperItem({

@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:wallpaper_app/models/wallpaper_response.dart';
+import 'package:wallpaper_app/models/wallpaper.dart';
 import 'package:wallpaper_app/universal/wallaper_selector.dart';
 
 class WallpaperHandler {

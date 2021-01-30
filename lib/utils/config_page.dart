@@ -4,7 +4,7 @@ import 'package:wallpaper_app/config/dark_mode.dart';
 import 'package:wallpaper_app/config/editors_choice_page_config.dart';
 import 'package:wallpaper_app/config/home_page_config.dart';
 import 'package:wallpaper_app/config/preferences.dart';
-import 'package:wallpaper_app/screens/root_page.dart';
+import 'package:wallpaper_app/pages/wallpaper_fetcher_widget.dart';
 import 'package:wallpaper_app/utils/wallpaper_app.dart';
 
 class ConfigPage extends StatelessWidget {
@@ -42,7 +42,7 @@ class ConfigPage extends StatelessWidget {
             ),
           ),
         ],
-        child: RootPage(),
+        child: WallpaperFetcherWidget(),
       ),
     );
   }

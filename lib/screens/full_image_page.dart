@@ -4,7 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:wallpaper_app/config/dark_mode.dart';
-import 'package:wallpaper_app/models/wallpaper_response.dart';
+import 'package:wallpaper_app/models/wallpaper.dart';
 import 'package:wallpaper_app/utils/wallpaper_handler.dart';
 
 class FullImagePage extends StatefulWidget {

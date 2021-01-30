@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wallpaper_app/config/preferences.dart';
+import 'package:wallpaper_app/utils/constants.dart';
 import 'package:wallpaper_app/utils/wallpaper_app.dart';
 
 class URLMaker {
@@ -8,7 +9,7 @@ class URLMaker {
     @required int page,
     bool editorsChoice,
   }) {
-    String baseURL = 'https://pixabay.com/api/?key=${WallpaperApp.apiKey}';
+    String baseURL = 'https://pixabay.com/api/?key=$kApiKey';
     Preferences preferences = Preferences();
     bool safeSearch = preferences.safeSearch;
     WallpaperOrientation orientation = preferences.wallpaperOrientation;

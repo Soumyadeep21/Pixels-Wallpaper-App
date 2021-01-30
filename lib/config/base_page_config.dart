@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wallpaper_app/models/wallpaper_response.dart';
+import 'package:wallpaper_app/models/wallpaper.dart';
 import 'package:wallpaper_app/utils/url_maker.dart';
 import 'package:wallpaper_app/utils/wallpaper_app.dart';
 import 'package:http/http.dart' as http;
