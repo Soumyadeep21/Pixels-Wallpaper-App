@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:downloads_path_provider/downloads_path_provider.dart';
+// import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -60,7 +60,9 @@ class WallpaperHandler {
   }
 
   static Future<String> downloadFile({@required Wallpaper wallpaper}) async {
-    var path = (await DownloadsPathProvider.downloadsDirectory).parent;
+    //TODO: Implement the Downloads Folder
+    // var path = (await DownloadsPathProvider.downloadsDirectory).parent;
+    var path = '';
     PermissionStatus permission = await PermissionHandler()
         .checkPermissionStatus(PermissionGroup.storage);
     if (permission != PermissionStatus.granted) {
@@ -73,7 +75,7 @@ class WallpaperHandler {
         return '';
       }
     }
-    Directory downloadPath = Directory('${path.path}/PixelsWallpaperDownloads');
+    Directory downloadPath = Directory('$path/PixelsWallpaperDownloads');
     downloadPath.exists().then((exist) async {
       if (!exist) await downloadPath.create();
     });

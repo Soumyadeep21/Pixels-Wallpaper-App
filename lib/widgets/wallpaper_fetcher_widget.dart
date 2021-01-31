@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:wallpaper_app/models/wallpaper.dart';
 import 'package:wallpaper_app/services/wallpaper_service.dart';
+import 'package:wallpaper_app/widgets/wallpaper_card.dart';
 
 class WallpaperFetcherWidget extends StatefulWidget {
   final String query, color, category;
@@ -57,11 +58,27 @@ class _WallpaperFetcherWidgetState extends State<WallpaperFetcherWidget> {
               stream: wallpaperService.wallpaperStream,
               builder: (context, snapshot) {
                 if (snapshot.connectionState != ConnectionState.active) {
-                  return Center(
-                    child: SpinKitWanderingCubes(
-                      color: Colors.blue,
+                  return Shimmer.fromColors(
+              baseColor: Colors.grey[300],
+              highlightColor: Colors.grey[100],
+              child: StaggeredGridView.countBuilder(
+                primary: false,
+                crossAxisCount: 4,
+                mainAxisSpacing: 8.0,
+                crossAxisSpacing: 8.0,
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return Container(
+                    height: index == 0 ? 250 : 300,
+                    decoration: BoxDecoration(
+                      color: Colors.teal,
+                      borderRadius: BorderRadius.circular(15),
                     ),
                   );
+                },
+                staggeredTileBuilder: (index) => StaggeredTile.fit(2),
+              ),
+            );
                 }
 
                 return RefreshIndicator(
@@ -76,8 +93,8 @@ class _WallpaperFetcherWidgetState extends State<WallpaperFetcherWidget> {
                   child: StaggeredGridView.countBuilder(
                     primary: false,
                     crossAxisCount: 4,
-                    mainAxisSpacing: 4.0,
-                    crossAxisSpacing: 4.0,
+                    mainAxisSpacing: 8.0,
+                    crossAxisSpacing: 8.0,
                     itemCount: snapshot.data.length,
                     controller: _scrollController,
                     itemBuilder: (context, index) {
@@ -95,31 +112,6 @@ class _WallpaperFetcherWidgetState extends State<WallpaperFetcherWidget> {
           ),
           if (isMoreLoading) LinearProgressIndicator(),
         ],
-      ),
-    );
-  }
-}
-
-class WallpaperCard extends StatelessWidget {
-  const WallpaperCard({
-    this.isFirst = false,
-    @required this.wallpaper,
-  });
-
-  final Wallpaper wallpaper;
-  final bool isFirst;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: isFirst ? 250 : 300,
-      // color: Colors.red,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        image: DecorationImage(
-          image: NetworkImage(wallpaper.webFormatURL),
-          fit: BoxFit.cover,
-        ),
       ),
     );
   }

@@ -4,7 +4,7 @@ import 'package:wallpaper_app/config/dark_mode.dart';
 import 'package:wallpaper_app/config/editors_choice_page_config.dart';
 import 'package:wallpaper_app/config/home_page_config.dart';
 import 'package:wallpaper_app/config/preferences.dart';
-import 'package:wallpaper_app/pages/wallpaper_fetcher_widget.dart';
+import 'package:wallpaper_app/pages/root_page.dart';
 import 'package:wallpaper_app/utils/wallpaper_app.dart';
 
 class ConfigPage extends StatelessWidget {
@@ -16,7 +16,7 @@ class ConfigPage extends StatelessWidget {
       title: WallpaperApp.appName,
       theme: ThemeData(
         fontFamily: WallpaperApp.notoSans,
-        scaffoldBackgroundColor: isDarkModeOn ? Colors.black : Colors.white,
+        scaffoldBackgroundColor: Colors.transparent,
         brightness: isDarkModeOn ? Brightness.dark : Brightness.light,
         backgroundColor: isDarkModeOn ? Colors.black : Colors.white,
         cardColor: isDarkModeOn ? Colors.black87 : Colors.white,
@@ -42,7 +42,7 @@ class ConfigPage extends StatelessWidget {
             ),
           ),
         ],
-        child: WallpaperFetcherWidget(),
+        child: RootPage(),
       ),
     );
   }

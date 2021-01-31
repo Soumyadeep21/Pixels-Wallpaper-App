@@ -20,7 +20,7 @@ class WallpaperService {
   List<Wallpaper> _wallpapers = [];
   int _page = 1;
   Map<String, dynamic> _queries = {};
-  StreamController<List<Wallpaper>> _controller = StreamController();
+  StreamController<List<Wallpaper>> _controller = StreamController.broadcast();
 
   Stream<List<Wallpaper>> get wallpaperStream => _controller.stream;
 
@@ -48,8 +48,8 @@ class WallpaperService {
     _queries = {};
     _page = 1;
     if (search != null) _queries['q'] = search;
-    if (category != null) _queries['category'] = category;
-    if (color != null) _queries['colors'] = color;
+    if (category != null) _queries['category'] = category.toLowerCase();
+    if (color != null) _queries['colors'] = color.toLowerCase();
     _queries['editors_choice'] = editorsChoice;
     _queries['page'] = _page;
     try {
