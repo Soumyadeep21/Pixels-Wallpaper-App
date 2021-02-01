@@ -58,11 +58,11 @@ class WallpaperService {
         queryParameters: _queries,
         options: buildCacheOptions(Duration(hours: 24)),
       );
-      int totalHits = response.data['totalHits'];
-      if (totalHits == null || totalHits == 0) {
-        _controller.addError('No Wallpapers Found :(');
-        return;
-      }
+      // int totalHits = response.data['totalHits'];
+      // if (totalHits == null || totalHits == 0) {
+      //   _controller.addError('No Wallpapers Found :(');
+      //   return;
+      // }
       response.data['hits'].forEach((val) {
         _wallpapers.add(Wallpaper.fromJSON(val));
       });
@@ -73,7 +73,8 @@ class WallpaperService {
         return;
       }
       if (e.type == DioErrorType.DEFAULT) {
-        print(e.error);
+        _controller.addError(
+            'Unable to Fetch Wallpapers. Please Check your Internet Connection !');
         return;
       }
     }
@@ -100,12 +101,17 @@ class WallpaperService {
       });
       _controller.add(_wallpapers);
     } on DioError catch (e) {
+      _page--;
       if (e.type == DioErrorType.RESPONSE) {
         Fluttertoast.showToast(msg: e.response.data.toString());
         return;
       }
       if (e.type == DioErrorType.DEFAULT) {
         print(e.error);
+        Fluttertoast.showToast(
+          msg:
+              'Unable to Fetch Wallpapers. Please Check your Internet Connection !',
+        );
         return;
       }
     }

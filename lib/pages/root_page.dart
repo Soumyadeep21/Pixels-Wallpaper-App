@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:rate_my_app/rate_my_app.dart';
+import 'package:wallpaper_app/config/dark_mode.dart';
 import 'package:wallpaper_app/pages/home_page.dart';
 import 'package:wallpaper_app/pages/settings_page.dart';
 import 'package:wallpaper_app/widgets/background.dart';
@@ -55,12 +57,13 @@ class _RootPageState extends State<RootPage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = Provider.of<DarkMode>(context).isDarkModeOn;
     return Background(
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-        ),
+        // appBar: AppBar(
+        //   backgroundColor: Colors.transparent,
+        //   elevation: 0,
+        // ),
         body: PageView(
           controller: pageController,
           physics: NeverScrollableScrollPhysics(),
@@ -86,24 +89,24 @@ class _RootPageState extends State<RootPage> {
           items: [
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
-                'assets/icons/home.svg',
+                'assets/icons/home_${isDark ? 'dark' : 'light'}.svg',
                 height: 25,
                 color: Color(0xffA5A6AC),
               ),
               activeIcon: SvgPicture.asset(
-                'assets/icons/home.svg',
+                'assets/icons/home_${isDark ? 'dark' : 'light'}.svg',
                 height: 25,
               ),
               label: 'Home',
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
-                'assets/icons/setting.svg',
+                'assets/icons/settings_${isDark ? 'dark' : 'light'}.svg',
                 height: 25,
                 color: Color(0xffA5A6AC),
               ),
               activeIcon: SvgPicture.asset(
-                'assets/icons/setting.svg',
+                'assets/icons/settings_${isDark ? 'dark' : 'light'}.svg',
                 height: 25,
               ),
               label: 'Settings',

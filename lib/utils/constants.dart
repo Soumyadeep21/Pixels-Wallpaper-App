@@ -26,6 +26,9 @@ const LinearGradient kDarkGradient = LinearGradient(
 const Color kLightBackground = Color(0xffFAFAFA);
 const Color kDarkBackground = Color(0xff181A20);
 
+const Color kButtonLight = Color(0xff476DDB);
+const Color kButtonDark = Color(0xff4DA2B0);
+
 const List<String> kCategories = [
   'Animals',
   'Food',

@@ -16,6 +16,7 @@ class SettingsPage extends StatelessWidget {
       children: <Widget>[
         Divider(),
         ListTile(
+        
           title: Text('Enable Dark Mode'),
           trailing: CupertinoSwitch(
             value: darkMode.isDarkModeOn,
