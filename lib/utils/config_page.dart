@@ -12,12 +12,7 @@ class ConfigPage extends StatelessWidget {
     bool isDarkModeOn = Provider.of<DarkMode>(context).isDarkModeOn;
     return GestureDetector(
       onTap: () {
-        FocusScopeNode _currentFocus = FocusScope.of(context);
-        if (!_currentFocus.hasPrimaryFocus &&
-            _currentFocus.focusedChild != null) {
-          print('Unfocus');
-          _currentFocus.focusedChild.unfocus();
-        }
+        WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
       },
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

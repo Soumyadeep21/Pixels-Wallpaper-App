@@ -183,7 +183,13 @@ class _WallpaperFetcherWidgetState extends State<WallpaperFetcherWidget> {
               },
             ),
           ),
-          if (isMoreLoading) LinearProgressIndicator(),
+          if (isMoreLoading)
+            LinearProgressIndicator(
+              backgroundColor: isDark ? Color(0xFFc4e0e5) : Color(0xFFb06ab3),
+              valueColor: new AlwaysStoppedAnimation<Color>(
+                isDark ? kButtonDark : kButtonLight,
+              ),
+            ),
         ],
       ),
     );
