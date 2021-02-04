@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:photo_view/photo_view.dart';
@@ -8,10 +9,23 @@ import 'package:wallpaper_app/services/wallpaper_handler.dart';
 import 'package:wallpaper_app/utils/constants.dart';
 import 'package:wallpaper_app/widgets/wallpaper_button.dart';
 
-class FullScreenPage extends StatelessWidget {
+class FullScreenPage extends StatefulWidget {
   final Wallpaper wallpaper;
   final UniqueKey heroTag;
   FullScreenPage(this.wallpaper, {this.heroTag});
+
+  @override
+  _FullScreenPageState createState() =>
+      _FullScreenPageState(this.wallpaper, this.heroTag);
+}
+
+class _FullScreenPageState extends State<FullScreenPage> {
+  bool isDownloading = false;
+  final Wallpaper wallpaper;
+  final UniqueKey heroTag;
+
+  _FullScreenPageState(this.wallpaper, this.heroTag);
+
   @override
   Widget build(BuildContext context) {
     bool isDark = Provider.of<DarkMode>(context).isDarkModeOn;
@@ -48,7 +62,18 @@ class FullScreenPage extends StatelessWidget {
                     ),
                   ),
                   WallpaperButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      setState(() {
+                        isDownloading = true;
+                      });
+                      try {
+                        await WallpaperHandler.downloadWallpaper(wallpaper);
+                      } finally {
+                        setState(() {
+                          isDownloading = false;
+                        });
+                      }
+                    },
                     color: Colors.grey.withOpacity(0.5),
                     child: SvgPicture.asset(
                       'assets/icons/save.svg',
@@ -58,10 +83,24 @@ class FullScreenPage extends StatelessWidget {
                     ),
                   ),
                   WallpaperButton(
-                    onPressed: () async{
-                      String value = await WallpaperHandler.showSetWallpaper(context);
-                      if(value == null || value.isEmpty) return;
-                      //TODO: Apply Wallpaper
+                    onPressed: () async {
+                      String type =
+                          await WallpaperHandler.showSetWallpaper(context);
+                      if (type == null || type.isEmpty) return;
+                      setState(() {
+                        isDownloading = true;
+                      });
+                      try {
+                        String path = await WallpaperHandler.downloadWallpaper(
+                          wallpaper,
+                          isApply: true,
+                        );
+                        await WallpaperHandler.setWallpaper(path, type);
+                      } finally {
+                        setState(() {
+                          isDownloading = false;
+                        });
+                      }
                     },
                     color: isDark ? kButtonDark : kButtonLight,
                     child: SvgPicture.asset(
@@ -72,6 +111,31 @@ class FullScreenPage extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+            ),
+          ),
+          Visibility(
+            visible: isDownloading,
+            child: Container(
+              color: isDark ? Colors.black54 : Colors.white54,
+              child: Center(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(
+                      valueColor: new AlwaysStoppedAnimation<Color>(
+                        isDark ? kButtonDark : kButtonLight,
+                      ),
+                    ),
+                    VerticalDivider(color: Colors.transparent),
+                    Text(
+                      'Please wait while its downloading :)',
+                      style:
+                          TextStyle(fontSize: 15, fontStyle: FontStyle.italic),
+                    )
+                  ],
+                ),
               ),
             ),
           ),

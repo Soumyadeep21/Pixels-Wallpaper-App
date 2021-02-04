@@ -30,11 +30,12 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<Preferences>(
           create: (_) => Preferences(
-              myOrder: WallpaperApp.prefs.getString(WallpaperApp.orderPref),
-              myWallpaperOrientation:
-                  WallpaperApp.prefs.getString(WallpaperApp.orientationPref),
-              mySafeSearch:
-                  WallpaperApp.prefs.getBool(WallpaperApp.safeSearchPref)),
+            myOrder: WallpaperApp.prefs.getString(WallpaperApp.orderPref),
+            myWallpaperOrientation:
+                WallpaperApp.prefs.getString(WallpaperApp.orientationPref),
+            mySafeSearch:
+                WallpaperApp.prefs.getBool(WallpaperApp.safeSearchPref),
+          ),
         ),
       ],
       child: ConfigPage(),

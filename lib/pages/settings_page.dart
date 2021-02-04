@@ -144,8 +144,11 @@ class SettingsPage extends StatelessWidget {
                     context: context,
                     builder: (ctx) => SimpleDialog(
                       backgroundColor:
-                          darkMode.isDarkModeOn ? Colors.black : Colors.white,
+                          darkMode.isDarkModeOn ? kDarkBackground : kLightBackground,
                       title: Text('About'),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
                       children: <Widget>[
                         ListTile(
                           title: Text(WallpaperApp.appName),

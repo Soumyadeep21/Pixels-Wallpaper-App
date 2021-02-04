@@ -2,8 +2,10 @@ import 'dart:async';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:dio/dio.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:wallpaper_app/config/preferences.dart';
 import 'package:wallpaper_app/models/wallpaper.dart';
 import 'package:wallpaper_app/utils/constants.dart';
+import 'package:wallpaper_app/utils/wallpaper_app.dart';
 
 class WallpaperService {
   static final Dio _dio = Dio(
@@ -52,6 +54,9 @@ class WallpaperService {
     if (color != null) _queries['colors'] = color.toLowerCase();
     _queries['editors_choice'] = editorsChoice;
     _queries['page'] = _page;
+    // Setting up the preferences
+    _setPreferences();
+
     try {
       var response = await _dio.get(
         'api/',
@@ -115,5 +120,32 @@ class WallpaperService {
         return;
       }
     }
+  }
+
+  void _setPreferences() {
+    Preferences preferences = Preferences();
+    WallpaperOrientation orientation = preferences.wallpaperOrientation;
+    Order order = preferences.order;
+    if (orientation != null)
+      switch (orientation) {
+        case WallpaperOrientation.all:
+          _queries['orientation'] = 'all';
+          break;
+        case WallpaperOrientation.horizontal:
+          _queries['orientation'] = 'horizontal';
+          break;
+        case WallpaperOrientation.vertical:
+          _queries['orientation'] = 'vertical';
+          break;
+      }
+    if (order != null)
+      switch (order) {
+        case Order.latest:
+          _queries['order'] = 'latest';
+          break;
+        case Order.popular:
+          _queries['order'] = 'popular';
+          break;
+      }
   }
 }

@@ -24,7 +24,7 @@ class SearchWallpaperField extends StatelessWidget {
     bool isDark = Provider.of<DarkMode>(context).isDarkModeOn;
     return Form(
       key: _formKey,
-          child: Row(
+      child: Row(
         children: [
           Expanded(
             child: TextFormField(
@@ -33,8 +33,7 @@ class SearchWallpaperField extends StatelessWidget {
               textInputAction: TextInputAction.search,
               onChanged: (s) => value = s,
               onFieldSubmitted: (value) {
-                if(clearOnSearch)
-                _formKey.currentState.reset();
+                if (clearOnSearch) _formKey.currentState.reset();
                 onSubmitted(value);
               },
               decoration: InputDecoration(
@@ -61,8 +60,7 @@ class SearchWallpaperField extends StatelessWidget {
                   : Colors.black.withOpacity(.3),
             ),
             onPressed: () {
-              if(clearOnSearch)
-              _formKey.currentState.reset();
+              if (clearOnSearch) _formKey.currentState.reset();
               onSubmitted(value);
             },
           ),
