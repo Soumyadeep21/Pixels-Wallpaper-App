@@ -7,7 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:wallpaper_app/config/dark_mode.dart';
+import 'package:wallpaper_app/services/dark_mode.dart';
 import 'package:wallpaper_app/models/wallpaper.dart';
 import 'package:wallpaper_app/utils/constants.dart';
 import 'package:wallpaper_app/widgets/wallpaper_button.dart';

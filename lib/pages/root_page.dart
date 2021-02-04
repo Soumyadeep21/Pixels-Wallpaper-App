@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:rate_my_app/rate_my_app.dart';
-import 'package:wallpaper_app/config/dark_mode.dart';
+import 'package:wallpaper_app/services/dark_mode.dart';
 import 'package:wallpaper_app/pages/home_page.dart';
 import 'package:wallpaper_app/pages/settings_page.dart';
 import 'package:wallpaper_app/widgets/background.dart';

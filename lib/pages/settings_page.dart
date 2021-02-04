@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:launch_review/launch_review.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
-import 'package:wallpaper_app/config/dark_mode.dart';
+import 'package:wallpaper_app/services/dark_mode.dart';
 import 'package:wallpaper_app/config/preferences.dart';
 import 'package:wallpaper_app/utils/constants.dart';
 import 'package:wallpaper_app/utils/wallpaper_app.dart';

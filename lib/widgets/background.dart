@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wallpaper_app/config/dark_mode.dart';
+import 'package:wallpaper_app/services/dark_mode.dart';
 import 'package:wallpaper_app/utils/constants.dart';
 
 class Background extends StatelessWidget {

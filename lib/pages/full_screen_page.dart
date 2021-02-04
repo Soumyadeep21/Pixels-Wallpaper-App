@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
-import 'package:wallpaper_app/config/dark_mode.dart';
+import 'package:wallpaper_app/services/dark_mode.dart';
 import 'package:wallpaper_app/models/wallpaper.dart';
 import 'package:wallpaper_app/services/wallpaper_handler.dart';
 import 'package:wallpaper_app/utils/constants.dart';

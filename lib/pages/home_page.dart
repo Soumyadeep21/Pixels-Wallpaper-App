@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wallpaper_app/config/dark_mode.dart';
+import 'package:wallpaper_app/services/dark_mode.dart';
 import 'package:wallpaper_app/pages/editors_page.dart';
 import 'package:wallpaper_app/pages/search_page.dart';
 import 'package:wallpaper_app/utils/constants.dart';
