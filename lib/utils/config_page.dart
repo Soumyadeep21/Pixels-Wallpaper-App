@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wallpaper_app/config/dark_mode.dart';
-import 'package:wallpaper_app/config/editors_choice_page_config.dart';
-import 'package:wallpaper_app/config/home_page_config.dart';
 import 'package:wallpaper_app/pages/root_page.dart';
 import 'package:wallpaper_app/utils/wallpaper_app.dart';
 
@@ -26,20 +24,11 @@ class ConfigPage extends StatelessWidget {
           primaryColor: isDarkModeOn ? Colors.black : Colors.white,
           buttonColor: isDarkModeOn ? Colors.green : Colors.blue,
           buttonTheme: ButtonThemeData().copyWith(
-              colorScheme:
-                  isDarkModeOn ? ColorScheme.dark() : ColorScheme.light()),
+            colorScheme:
+                isDarkModeOn ? ColorScheme.dark() : ColorScheme.light(),
+          ),
         ),
-        home: MultiProvider(
-          providers: [
-            ChangeNotifierProvider<EditorsChoicePageConfig>(
-              create: (_) => EditorsChoicePageConfig(),
-            ),
-            ChangeNotifierProvider<HomePageConfig>(
-              create: (_) => HomePageConfig(),
-            ),
-          ],
-          child: RootPage(),
-        ),
+        home: RootPage(),
       ),
     );
   }
