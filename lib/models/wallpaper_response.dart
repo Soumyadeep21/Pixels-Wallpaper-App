@@ -1,3 +1,5 @@
+import 'package:wallpaper_app/models/wallpaper.dart';
+
 class WallpaperResponse{
   
   int totalHits;
@@ -15,23 +17,4 @@ class WallpaperResponse{
     });
     return WallpaperResponse(totalHits: _totalHits,hits: _hits);
   }
-}
-
-class Wallpaper{
-
-  String largeImageURL;
-  String id;
-  int imageSize;
-  String pageURL;
-  int imageWidth;
-  int imageHeight;
-
-  Wallpaper.fromJSON(Map<String,dynamic> json){
-  largeImageURL = json['largeImageURL'];
-  imageSize = json['imageSize'];
-  pageURL = json['pageURL'];
-  imageWidth = json['imageWidth'];
-  imageHeight = json['imageHeight'];
-  id = json['id'].toString();
-}
 }

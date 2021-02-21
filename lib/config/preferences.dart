@@ -8,23 +8,28 @@ class Preferences extends ChangeNotifier {
   bool _firstTime = true;
   static Preferences singleton = Preferences._internal();
   Preferences._internal();
-  factory Preferences(
-      {String myOrder, bool mySafeSearch, String myWallpaperOrientation}) {
-    if(singleton._firstTime)
-    {
+  factory Preferences({
+    String myOrder,
+    bool mySafeSearch,
+    String myWallpaperOrientation,
+  }) {
+    if (singleton._firstTime) {
       singleton._firstTime = false;
-      singleton.wallpaperOrientation = myWallpaperOrientation ==
-            WallpaperOrientation.all.toString()
-        ? WallpaperOrientation.all
-        : (myWallpaperOrientation == WallpaperOrientation.vertical.toString() ||
-                myWallpaperOrientation == null
-            ? WallpaperOrientation.vertical
-            : WallpaperOrientation.horizontal);
-    singleton.order = myOrder == Order.popular.toString() || myOrder == null
-        ? Order.popular
-        : Order.latest;
-    if (mySafeSearch == null) singleton.safeSearch = false;
-    else singleton.safeSearch = mySafeSearch;
+      singleton.wallpaperOrientation =
+          myWallpaperOrientation == WallpaperOrientation.all.toString()
+              ? WallpaperOrientation.all
+              : (myWallpaperOrientation ==
+                          WallpaperOrientation.vertical.toString() ||
+                      myWallpaperOrientation == null
+                  ? WallpaperOrientation.vertical
+                  : WallpaperOrientation.horizontal);
+      singleton.order = myOrder == Order.popular.toString() || myOrder == null
+          ? Order.popular
+          : Order.latest;
+      if (mySafeSearch == null)
+        singleton.safeSearch = false;
+      else
+        singleton.safeSearch = mySafeSearch;
     }
     return singleton;
   }
